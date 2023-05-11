@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1>Login Below</h1>
+
+<style>
+h3{
+    color: red;
+}
+</style>
+
+{% for message in messages %}
+<h3>{{message}}</h3>
+{% endfor %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Username:</p>
+    <input type="text" name="username"/>
+    <p>Password:</p>
+    <input type="password" name="password"/><br><br>
+    <input type="submit"/>
+</form><br>
+<li><a class="nav-link scrollto" href="/register">Sign Up Here</a></li>
+
+{% endblock %}

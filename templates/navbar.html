@@ -1,0 +1,15 @@
+<nav>
+    <div class="nav-container">
+        <div class="nav-left">
+            <a href="{% url 'posts:main-page' %}">Home</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profiles:logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'profiles:login' %}">Login</a>
+                <a href="{% url 'profiles:register' %}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
