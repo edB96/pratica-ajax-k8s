@@ -13,11 +13,13 @@ services:
   
   db:
     image: postgres:15.0-alpine
+    ports:
+     - "5432:5432"
     volumes:
      - postgres_data:/var/lib/postgresql/data/
     environment:
-      POSTGRES_USER: 
-      POSTGRES_PASSWORD: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: myDB
 
     
@@ -25,4 +27,3 @@ services:
 volumes: 
   postgres_data:
   media_data:
-    
