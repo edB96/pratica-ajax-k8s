@@ -4,7 +4,7 @@ INSTALLATION:
 
 WINDOWS:
 - download Docker Desktop
-- nella root directory del progetto esegui il comando "docker compose build" seguito da "docker compose app"
+- nella root directory del progetto esegui il comando "docker compose build" seguito da "docker compose up"
 - con browser accedi all'URL "localhost:8000"
 
 PER CREARE SUPERUSER:
