@@ -1,10 +1,10 @@
 FROM python:3.11.3
 
-ENV PITHONUNBUFFERED 1
-
-WORKDIR /code
-
-COPY requirements.txt /code/
-RUN pip install --no-cache-dir -r requirements.txt
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
 COPY . /code/
+WORKDIR /code
+
+RUN pip install --no-cache-dir -r requirements.txt
+

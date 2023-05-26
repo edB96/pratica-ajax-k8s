@@ -9,21 +9,28 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
-  
+      db:
+        condition: service_healthy
+
   db:
     image: postgres:15.0-alpine
-    ports:
-     - "5432:5432"
     volumes:
-     - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: myDB
 
+    # siccome la prima volta che faccio docker compose up mi dà errore perchè il service web fa migrazione prima che il db sia stato creato!
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     
 
-volumes: 
-  postgres_data:
+volumes:
   media_data:
+  postgres_data:

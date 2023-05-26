@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: edb96/pratica_ajax:latest
+        command: ["bash", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: media-data
+          mountPath: /code/media/
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #     - pg_isready
+        #     - -U
+        #     - postgres
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        #   timeoutSeconds: 5
+      volumes:
+      - name: media-data
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector:
+    app: web
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+  type: LoadBalancer
